@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f3ee">
+<title>Denzel · Daily</title>
+<style>
+:root{--bg:#f5f3ee;--card:#fff;--ink:#23262b;--mut:#7a7f87;--line:#e4e0d6;--g:#4f9d5d;--gd:#3b7d47;--o:#e8873a;--b:#3d7bd6;--r:#d65a4a}
+@media(prefers-color-scheme:dark){:root{--bg:#161a1d;--card:#20262a;--ink:#eceef0;--mut:#98a0a8;--line:#303840}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-top:env(safe-area-inset-top)}
+#app{max-width:520px;margin:0 auto;height:100%;display:flex;flex-direction:column}
+#top{display:flex;gap:14px;padding:10px 16px;background:var(--card);border-bottom:2px solid var(--line)}
+.chip{font-weight:800;font-size:15px}.s{color:var(--o)}.x{color:var(--b)}.l{margin-left:auto;color:var(--g)}
+main{flex:1;overflow-y:auto;padding:14px 16px 24px}
+h1{font-size:26px;margin:4px 0 0}.mu{color:var(--mut);margin:2px 0 14px;font-size:14px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.wg{display:flex;gap:14px;align-items:center;background:var(--g);border-color:var(--gd);color:#fff}
+.q{display:flex;gap:12px;align-items:flex-start}
+.ic{width:44px;height:44px;border-radius:14px;background:var(--bg);display:grid;place-items:center;font-size:22px;flex:none}
+.q h3{margin:0;font-size:16px}.q p{margin:2px 0 0;color:var(--mut);font-size:14px}
+.xp{margin-left:auto;font-weight:800;color:var(--b);font-size:13px;white-space:nowrap}
+.dn{opacity:.6}.dn h3{text-decoration:line-through}
+.btn{display:block;width:100%;margin-top:12px;padding:13px;border:0;border-radius:14px;background:var(--g);box-shadow:0 4px 0 var(--gd);color:#fff;font-weight:800;font-size:15px;font-family:inherit;letter-spacing:.4px;text-transform:uppercase;position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--gd)}
+.btn.off{background:var(--line);color:var(--mut);box-shadow:0 4px 0 rgba(0,0,0,.12)}
+.hl::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.28);transform-origin:left;animation:hl 1.5s linear forwards}
+@keyframes hl{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+textarea,input[type=time]{width:100%;padding:10px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{margin-top:10px;resize:none;min-height:70px}
+input[type=time]{width:auto}
+.tm{font-size:36px;font-weight:800;text-align:center;margin-top:8px;font-variant-numeric:tabular-nums}
+.bar{height:12px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;background:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:10px}.grid b{aspect-ratio:1;border-radius:50%;background:var(--line)}.grid .y{background:var(--g)}.grid .n{background:var(--r);opacity:.55}.grid .t{outline:3px solid var(--o)}
+.row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.pill{border:0;border-radius:20px;padding:7px 16px;background:var(--g);color:#fff;font-weight:800;font-family:inherit}.pill.off{background:var(--line);color:var(--mut)}
+nav{display:flex;background:var(--card);border-top:2px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;padding:9px 0 7px;color:var(--mut);font-weight:700;font-size:12px;font-family:inherit}
+nav button.on{color:var(--g)}nav i{display:block;font-style:normal;font-size:22px}
+#bn{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top) + 8px);max-width:496px;margin:auto;background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:14px;font-weight:600;font-size:14px;display:none;z-index:9}
+#pop{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;place-items:center;z-index:10}#pop.on{display:grid}
+.pc{background:var(--card);border-radius:24px;padding:28px 36px;text-align:center;animation:pp .4s cubic-bezier(.2,1.6,.4,1)}
+.pc div{font-size:64px}.pc b{display:block;font-size:22px}.pc span{color:var(--o);font-weight:800}
+@keyframes pp{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+</style></head><body>
+<div id="app"><div id="top"></div><main id="m"></main>
+<nav><button data-a="tab" data-t="0"><i>🏠</i>Today</button><button data-a="tab" data-t="1"><i>📅</i>Week</button><button data-a="tab" data-t="2"><i>⚙️</i>Settings</button></nav></div>
+<div id="bn"></div><div id="pop"></div>
+<script>
+const $=s=>document.querySelector(s),K='dz_os_v1';
+const dk=(d=new Date())=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+S=S||{start:dk(),xp:0,seen:0,d:{},w:{},set:{snd:1,vib:1,rem:['07:00','13:00','20:00']}};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const T=[
+{id:'water',n:'Hydrate on waking',s:'One full glass of water.',xp:5,k:'hold',core:1,ic:'💧'},
+{id:'move',n:'Move your body',s:'10 minutes of exercise or a brisk walk.',xp:10,k:'timer',m:10,core:1,ic:'🏃',after:'water'},
+{id:'read',n:'Read aloud',s:'Five minutes. Clear, steady English.',xp:10,k:'timer',m:5,core:1,ic:'📖',after:'move'},
+{id:'rep',n:'Confidence rep',s:'',xp:20,k:'text',min:12,ph:'Who did you talk to? What did you say?',core:1,ic:'🗣️'},
+{id:'py',n:'Python deep work',s:'30 minutes. One track only.',xp:15,k:'timer',m:30,ic:'🐍'},
+{id:'jr',n:'Mistake / win journal',s:'Unlocks at 5 pm. Truth, not the ideal.',xp:10,k:'text',min:40,ph:'One win, one mistake, one lesson…',core:1,ic:'✍️',at:17}];
+const CORE=T.filter(t=>t.core).map(t=>t.id);
+const R=['Say “good morning” to 3 strangers. Eye contact.','Ask a stranger a low-stakes question.','Give one genuine compliment to a small business owner.','Ask a business owner one curious question about their business.','Have a 2-minute curiosity chat with a business owner.','Ask the restaurant owner how they got started. No pitch.'];
+let tab=0,draft={},lkd=0,cur=dk(),ht;
+const day=()=>S.d[dk()]||(S.d[dk()]={done:{},t:{},ft:{},txt:{}});
+const dayN=()=>Math.round((new Date(dk()+'T00:00')-new Date(S.start+'T00:00'))/864e5)+1;
+const rung=()=>Math.min(5,Math.floor((dayN()-1)/5));
+const lvl=()=>Math.floor(S.xp/100)+1;
+const mon=()=>{const c=new Date();c.setDate(c.getDate()-(c.getDay()+6)%7);return c};
+const wk=()=>dk(mon());
+const mmss=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+const u=(v,n)=>new Set(v.toLowerCase().split(/\s+/)).size>=Math.ceil(n/8);
+function streak(){let n=0,c=new Date();if(!(S.d[dk(c)]||{}).fl)c.setDate(c.getDate()-1);while((S.d[dk(c)]||{}).fl){n++;c.setDate(c.getDate()-1)}return n}
+function pyN(){let n=0,c=mon();for(let i=0;i<7;i++){if(((S.d[dk(c)]||{}).done||{}).py)n++;c.setDate(c.getDate()+1)}return n}
+function lk(t){const d=day();if(t.after&&!d.done[t.after])return'Finish “'+T.find(x=>x.id==t.after).n+'” first';if(t.at&&new Date().getHours()<t.at)return'Unlocks at '+t.at+':00';return''}
+/* sound + vibration */
+let AC;function tone(f,t,d,ty,v){if(!S.set.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+t;o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(v||.15,s+.01);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d+.02)}catch(e){}}
+const BASE=[523,587,659,698,784,880];
+const SND={tick:()=>tone(660,0,.05,'triangle',.08),start:()=>{tone(392,0,.1);tone(523,.1,.18)},
+ok:i=>[1,1.25,1.5].forEach((m,j)=>tone(BASE[i]*m,j*.09,.22,'triangle')),
+floor:()=>[523,659,784,1047].forEach((f,i)=>tone(f,i*.1,.3,'triangle',.18)),
+win:()=>[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,i*.11,.35,'square',.09)),
+bad:()=>{tone(180,0,.18,'sawtooth',.12);tone(140,.16,.25,'sawtooth',.12)},
+bell:()=>{tone(880,0,.5,'sine',.2);tone(1318,.15,.6,'sine',.15)}};
+const vib=p=>{if(S.set.vib&&navigator.vibrate)navigator.vibrate(p)};
+function say(m){const b=$('#bn');b.textContent=m;b.style.display='block';clearTimeout(say.t);say.t=setTimeout(()=>b.style.display='none',2800)}
+function pop(e,h,m){const p=$('#pop');p.innerHTML='<div class="pc"><div>'+e+'</div><b>'+h+'</b><span>'+m+'</span></div>';p.className='on';clearTimeout(pop.t);pop.t=setTimeout(()=>p.className='',1900)}
+function bad(m){SND.bad();vib([60,40,60]);say(m)}
+function notify(t,b){SND.bell();vib([200,100,200,100,200]);say(t+' '+b);if('Notification' in window&&Notification.permission=='granted'){try{new Notification(t,{body:b,tag:'dz'})}catch(e){}}}
+/* actions */
+function fin(id){const d=day(),i=T.findIndex(x=>x.id==id),t=T[i];if(d.done[id])return;d.done[id]=1;S.xp+=t.xp;let m='+'+t.xp+' XP';
+const all=T.every(x=>d.done[x.id]),fl=!d.fl&&CORE.every(c=>d.done[c]);if(fl){d.fl=1;S.xp+=20;m+=' · +20 bonus'}
+delete draft['t-'+id];save();
+if(all){SND.win();vib([200,80,200,80,200,80,500]);pop('🏆','Perfect day!',m)}
+else if(fl){SND.floor();vib([120,60,120,60,300]);pop('🔥','Streak secured: '+streak()+' days',m)}
+else{SND.ok(i);vib([80,40,120]);pop('✅',t.n+' done',m)}
+render()}
+function start(id){const d=day();if(T.some(t=>t.k=='timer'&&d.t[t.id]&&!d.done[t.id]))return bad('Finish your current timer first.');d.t[id]=Date.now()+T.find(t=>t.id==id).m*6e4;save();SND.start();vib(40);render()}
+function sub(id){const t=T.find(x=>x.id==id),v=($('#t-'+id).value||'').trim();if(v.length<t.min||!u(v,t.min))return bad('Not enough. Write at least '+t.min+' real characters.');day().txt[id]=v;fin(id)}
+function award(e,h,xp,k,v){const w=S.w[wk()]||(S.w[wk()]={});w[k]=v;S.xp+=xp;save();SND.floor();vib([150,70,150,70,300]);pop(e,h,'+'+xp+' XP');render()}
+function hu(){const v=($('#hu').value||'').trim();if(v.length<30||!u(v,30))return bad('Describe what you actually did: 30+ characters.');award('💼','Hustle test logged',25,'h',v)}
+function rev(){if(new Date().getDay()!=0)return bad('The review only opens on Sunday.');const v=[0,1,2,3].map(i=>($('#r'+i).value||'').trim());if(v.some(x=>x.length<15||!u(x,15)))return bad('Answer all four properly. 15+ characters each.');award('🧠','Weekly review done',25,'r',v)}
+async function perm(){if(!('Notification' in window))return say('No notification support here. In-app alerts still work.');const r=await Notification.requestPermission();say(r=='granted'?'Notifications on while the app is open.':'Blocked. In-app alerts still work.');render()}
+/* views */
+function q(t){const d=day(),L=lk(t),done=d.done[t.id],i=t.id;let a='';
+if(!done){if(L)a='<button class="btn off" data-a="bad" data-m="'+L+'">🔒 '+L+'</button>';
+else if(t.k=='hold')a='<button class="btn" id="hb" data-i="'+i+'">Hold to confirm</button>';
+else if(t.k=='timer'){const e=d.t[i],n=Date.now();a=!e?'<button class="btn" data-a="start" data-i="'+i+'">Start '+t.m+':00</button>':e>n?'<div class="tm" id="tm-'+i+'">'+mmss(Math.ceil((e-n)/1e3))+'</div><button class="btn off" data-a="bad" data-m="Timer running. No shortcuts.">Keep going…</button>':'<button class="btn" data-a="claim" data-i="'+i+'">Claim +'+t.xp+' XP</button>'}
+else a='<textarea id="t-'+i+'" data-min="'+t.min+'" data-b="b-'+i+'" placeholder="'+t.ph+'"></textarea><button class="btn off" id="b-'+i+'" data-a="sub" data-i="'+i+'" data-l="Submit +'+t.xp+' XP">0/'+t.min+' characters</button>'}
+const s=i=='rep'?'Rung '+(rung()+1)+' of 6: '+R[rung()]:t.s;
+return'<div class="card'+(done?' dn':'')+'"><div class="q"><div class="ic">'+t.ic+'</div><div><h3>'+t.n+'</h3><p>'+s+'</p></div><span class="xp">'+(done?'✓':'+'+t.xp)+'</span></div>'+a+'</div>'}
+function today(){const d=day(),dn=T.filter(t=>d.done[t.id]).length,h=new Date().getHours(),nx=T.find(t=>!d.done[t.id]&&!lk(t));
+return'<h1>'+(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+', Denzel</h1><p class="mu">Day '+Math.min(dayN(),30)+' of 30 · '+new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'})+'</p>'+
+'<div class="card wg"><svg width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="9"/><circle cx="42" cy="42" r="34" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+213.6*dn/6+' 213.6" transform="rotate(-90 42 42)"/><text x="42" y="48" text-anchor="middle" fill="#fff" font-size="19" font-weight="800">'+dn+'/6</text></svg><div><b>'+(dn==6?'Perfect day 🏆':'Next up')+'</b><div>'+(dn==6?'Rest. Come back tomorrow.':nx?nx.n:'Waiting on a timed unlock')+'</div><small>🔥 '+streak()+'-day streak · Lv '+lvl()+'</small></div></div>'+T.map(q).join('')}
+function week(){const w=S.w[wk()]||{},py=pyN(),sun=new Date().getDay()==0,n=dayN();let ok=0,g='';
+for(let i=0;i<30;i++){const c=new Date(S.start+'T00:00');c.setDate(c.getDate()+i);const f=(S.d[dk(c)]||{}).fl;if(f)ok++;g+='<b class="'+(f?'y':i+1<n?'n':'')+(i+1==n?' t':'')+'"></b>'}
+const hc=w.h?'<p class="mu">Logged ✓</p>':'<textarea id="hu" data-min="30" data-b="bh" placeholder="Who did you approach? What did you offer? What happened?"></textarea><button class="btn off" id="bh" data-a="hu" data-l="Log it +25 XP">0/30 characters</button>';
+const rc=w.r?'<p class="mu">Review done ✓</p>':sun?['What did I plan, and what did I actually do?','What mistake cost me the most?','What is the lesson, not the excuse?','What one change will I make?'].map((x,i)=>'<p class="mu" style="margin:10px 0 0">'+x+'</p><textarea id="r'+i+'" data-min="15" data-b="br" style="min-height:50px"></textarea>').join('')+'<button class="btn off" id="br" data-a="rev" data-l="Submit review +25 XP">Answer all four</button>':'<p class="mu">🔒 Opens on Sunday only. Miss it and it’s gone.</p>';
+return'<h1>This week</h1><p class="mu">Targets reset every Monday.</p>'+
+'<div class="card"><div class="q"><div class="ic">🐍</div><div><h3>Python sessions</h3><p>'+py+' of 5 this week</p></div></div><div class="bar"><i style="width:'+Math.min(100,py*20)+'%"></i></div></div>'+
+'<div class="card"><div class="q"><div class="ic">💼</div><div><h3>One real hustle test</h3><p>Take one action with a real person.</p></div><span class="xp">+25</span></div>'+hc+'</div>'+
+'<div class="card"><div class="q"><div class="ic">🧠</div><div><h3>Sunday review</h3><p>15 honest minutes.</p></div><span class="xp">+25</span></div>'+rc+'</div>'+
+'<div class="card"><h3 style="margin:0">30-day run</h3><p class="mu" style="margin:2px 0 0">'+ok+' days secured. 25 needed to pass Phase 1.'+(n>30?(ok>=25?' You passed. 🎉':' Not yet: fix the one habit that broke most and rerun.'):'')+'</p><div class="grid">'+g+'</div></div>'}
+function sets(){const s=S.set,np='Notification' in window?Notification.permission:'';
+return'<h1>Settings</h1><p class="mu">Everything saves on this device.</p><div class="card">'+
+'<div class="row"><span>🔊 Sounds</span><button class="pill'+(s.snd?'':' off')+'" data-a="tog" data-k="snd">'+(s.snd?'ON':'OFF')+'</button></div>'+
+'<div class="row"><span>📳 Vibration</span><button class="pill'+(s.vib?'':' off')+'" data-a="tog" data-k="vib">'+(s.vib?'ON':'OFF')+'</button></div>'+
+'<div class="row"><span>🔔 Notifications</span><button class="pill'+(np=='granted'?'':' off')+'" data-a="perm">'+(np=='granted'?'ON':'Enable')+'</button></div></div>'+
+'<div class="card"><h3 style="margin:0">Reminders</h3><p class="mu">Fire while the app is open, only if core quests are unfinished.</p>'+s.rem.map((r,i)=>'<div class="row"><span>Reminder '+(i+1)+'</span><input type="time" value="'+r+'" data-a="rem" data-i="'+i+'"></div>').join('')+'<button class="btn" data-a="test">Test alert</button></div>'+
+'<div class="card"><h3 style="margin:0">Strict mode (always on)</h3><p class="mu">Done quests can’t be undone. Timers use real time and can’t be cancelled. Text quests reject filler. The morning block runs in order. Journal unlocks at 5 pm. Miss a day and the streak resets. If the phone clock moves backwards, the app locks. There is no reset button.</p></div>'}
+function render(){if(lkd)return;document.querySelectorAll('textarea').forEach(t=>draft[t.id]=t.value);
+$('#top').innerHTML='<span class="chip s">🔥 '+streak()+'</span><span class="chip x">⭐ '+S.xp+' XP</span><span class="chip l">Lv '+lvl()+'</span>';
+$('#m').innerHTML=[today,week,sets][tab]();
+document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('on',i==tab));
+document.querySelectorAll('textarea').forEach(t=>{if(draft[t.id]){t.value=draft[t.id];t.dispatchEvent(new Event('input',{bubbles:true}))}})}
+/* events */
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,i=b.dataset.i;
+if(a=='tab'){tab=+b.dataset.t;SND.tick();render()}else if(a=='bad')bad(b.dataset.m);else if(a=='start')start(i);else if(a=='claim')fin(i);else if(a=='sub')sub(i);else if(a=='hu')hu();else if(a=='rev')rev();else if(a=='perm')perm();
+else if(a=='tog'){S.set[b.dataset.k]^=1;save();SND.tick();vib(30);render()}
+else if(a=='test')notify('Test alert 🔔','This is what a reminder feels like.')});
+document.addEventListener('change',e=>{if(e.target.dataset.a=='rem'){S.set.rem[+e.target.dataset.i]=e.target.value;save()}});
+document.addEventListener('input',e=>{const t=e.target;if(t.tagName!='TEXTAREA')return;draft[t.id]=t.value;const b=$('#'+t.dataset.b);if(!b)return;
+const ok=[...document.querySelectorAll('textarea[data-b="'+t.dataset.b+'"]')].every(x=>x.value.trim().length>=+x.dataset.min);b.classList.toggle('off',!ok);b.textContent=ok?b.dataset.l:'Keep writing… '+t.value.trim().length+'/'+t.dataset.min});
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('#hb');if(!b)return;b.classList.add('hl');vib(20);const id=b.dataset.i;ht=setTimeout(()=>fin(id),1500)});
+['pointerup','pointercancel'].forEach(v=>document.addEventListener(v,()=>{clearTimeout(ht);const b=$('#hb');b&&b.classList.remove('hl')}));
+document.addEventListener('contextmenu',e=>{if(e.target.closest('#hb'))e.preventDefault()});
+$('#pop').onclick=()=>$('#pop').className='';
+/* clock */
+function tick(){const now=Date.now();
+if(now<S.seen-12e4){if(!lkd){lkd=1;$('#m').innerHTML='<div class="card"><h3>🔒 Clock changed</h3><p class="mu">Your phone clock moved backwards. Strict mode is locked until real time catches up.</p></div>'}return}
+if(lkd){lkd=0;render()}
+if(now>S.seen+3e4){S.seen=now;save()}else S.seen=Math.max(S.seen,now);
+const d=day();
+T.forEach(t=>{const e=d.t[t.id];if(t.k!='timer'||!e)return;if(e<=now&&!d.ft[t.id]){d.ft[t.id]=1;save();notify('Timer done ⏱️','“'+t.n+'”: claim your XP.');render()}else if(e>now){const el=$('#tm-'+t.id);if(el)el.textContent=mmss(Math.ceil((e-now)/1e3))}});
+const dt=new Date(),hm=String(dt.getHours()).padStart(2,'0')+':'+String(dt.getMinutes()).padStart(2,'0'),f=d.rf||(d.rf={});
+S.set.rem.forEach(r=>{if(r==hm&&!f[r]){f[r]=1;save();const left=CORE.filter(c=>!d.done[c]).length;if(left)notify('Daily quests 🔥',left+' core quest'+(left>1?'s':'')+' left. Your streak is on the line.')}});
+if(dk()!=cur){cur=dk();draft={};render()}}
+document.addEventListener('visibilitychange',()=>{tick();render()});
+render();setInterval(tick,1000);
+</script></body></html>
